@@ -92,13 +92,35 @@
                         <tr>
                             <td data-bind="text:level"></td>
                             <td data-bind="text:nation_i18n"></td>
-                            <td><a href="#" data-bind="text:name_i18n"></a>
+                            <td><a href="#" data-bind="text:name_i18n,click:masterVM.showTankInfo.bind(masterVM,tank_id)"></a>
                                 <span data-bind="if:is_premium"><img src="assets/ico/premium.png" /></span>
                             </td>
                             <td data-bind="text:type_i18n"></td>
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div data-bind="visible: 'Tank' == navVM.currentPath()[0]">
+                    <div data-bind="with:masterVM.tankSelected">
+                        <img data-bind="attr:{src:image}" />
+                        <img data-bind="attr:{src:image_small}" />
+                        <img data-bind="attr:{src:contour_image}" />
+                    <table id="tankInfoTable" class="table table-striped table-bordered bootstrap-datatable datatableFill">
+                        <caption data-bind="text:name_i18n"></caption>
+                        <tr>
+                            <td>Уровень</td>
+                            <td data-bind="text:level"></td>
+                        </tr>
+                        <tr>
+                            <td>Экипаж</td>
+                            <td>
+                                <ul data-bind="foreach:crew">
+                                    <li data-bind="text:role_i18n"></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
                 </div>
             </div>
             <!--/row-->

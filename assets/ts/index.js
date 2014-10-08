@@ -34,6 +34,7 @@ var ViewModels;
             this.application_id = '54c513273ff810e69695c9dc613c654f';
             this.navVM = new ViewModels.NavigationViewModel();
             this.tanksList = ko.observableArray([]);
+            this.tankSelected = ko.observable({});
             this.getTanksInfo();
         }
         MasterViewModel.createSelect = function (aData, caption) {
@@ -81,6 +82,20 @@ var ViewModels;
                         tanksTable.fnFilter("^" + $(this).val() + "$", 3, true, false);
                     }
                 });
+            });
+        };
+
+        MasterViewModel.prototype.showTankInfo = function (tank) {
+            this.navVM.currentPath(['Tank', tank]);
+            var self = this;
+            var promise = $.ajax({
+                dataType: "json",
+                url: "http://api.worldoftanks.ru/wot/encyclopedia/tankinfo/",
+                type: "GET",
+                data: { 'application_id': this.application_id, 'tank_id': tank }
+            });
+            promise.done(function (data) {
+                self.tankSelected(data.data[tank]);
             });
         };
         return MasterViewModel;

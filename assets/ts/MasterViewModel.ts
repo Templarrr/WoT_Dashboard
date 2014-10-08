@@ -5,7 +5,7 @@
 /// <reference path="NavigationViewModel.ts" />
 
 module ViewModels {
-    export interface tankInfo {
+    export interface tankShortInfo {
         is_premium:boolean;
         level:number;
         name:string;
@@ -18,10 +18,68 @@ module ViewModels {
         type_i18n:string
     }
 
+    export interface  tankFullInfo {
+        chassis_rotation_speed : number;
+        circular_vision_radius : number;
+        contour_image : string;
+        engine_power : number;
+        gun_damage_max : number;
+        gun_damage_min : number;
+        gun_max_ammo : number;
+        gun_name : string;
+        gun_piercing_power_max : number;
+        gun_piercing_power_min : number;
+        gun_rate : number;
+        image : string;
+        image_small : string;
+        is_gift : boolean;
+        is_premium : boolean;
+        level : number;
+        limit_weight : number;
+        max_health : number;
+        name : string;
+        name_i18n : string;
+        nation : string;
+        nation_i18n : string;
+        price_credit : number;
+        price_gold : number;
+        radio_distance : number;
+        short_name_i18n : string;
+        speed_limit : number;
+        tank_id : number;
+        turret_armor_board : number;
+        turret_armor_fedd : number;
+        turret_armor_forehead : number;
+        turret_rotation_speed : number;
+        type : string;
+        type_i18n : string;
+        vehicle_armor_board : number;
+        vehicle_armor_fedd : number;
+        vehicle_armor_forehead : number;
+        weight : number;
+        chassis : tankModuleInfo[];
+        crew : tankCrewInfo[];
+        engines : tankModuleInfo[];
+        guns : tankModuleInfo[];
+        radios : tankModuleInfo[];
+        turrets : tankModuleInfo[];
+    }
+
+    export interface tankModuleInfo {
+        module_id : number;
+        is_default : boolean;
+    }
+
+    export interface tankCrewInfo {
+        role : string;
+        role_i18n : string;
+    }
+
     export class MasterViewModel {
         application_id:string = '54c513273ff810e69695c9dc613c654f';
         navVM:NavigationViewModel = new ViewModels.NavigationViewModel();
         tanksList:KnockoutObservableArray<any> = ko.observableArray([]);
+        tankSelected:KnockoutObservable<any> = ko.observable({});
 
         public static createSelect(aData:string[], caption = 'All'):string {
             var selStart = '<select><option value="" selected="selected">' + caption + '</option>';
@@ -39,7 +97,7 @@ module ViewModels {
                 data: {'application_id': this.application_id}
             });
             promise.done(function (data) {
-                self.tanksList(_.sortBy(_.toArray(data.data), function (tank:tankInfo) {
+                self.tanksList(_.sortBy(_.toArray(data.data), function (tank:tankShortInfo) {
                     var levelStr = tank.level < 10 ? '0' + tank.level : '' + tank.level;
                     return tank.nation_i18n + '_' + levelStr + '_' + tank.name_i18n;
                 }));
@@ -68,6 +126,20 @@ module ViewModels {
                     }
                 });
 
+            })
+        }
+
+        public showTankInfo(tank) {
+            this.navVM.currentPath(['Tank', tank]);
+            var self = this;
+            var promise = $.ajax({
+                dataType: "json",
+                url: "http://api.worldoftanks.ru/wot/encyclopedia/tankinfo/",
+                type: "GET",
+                data: {'application_id': this.application_id, 'tank_id': tank}
+            });
+            promise.done(function (data) {
+                self.tankSelected(data.data[tank]);
             })
         }
 

@@ -48,49 +48,6 @@
         </button>
         <a id="main-menu-toggle" class="hidden-xs open"><i class="fa fa-bars"></i></a>
         <a class="navbar-brand col-md-2 col-sm-1 col-xs-2" href="/"><span>WoT</span></a>
-        <!-- start: Header Menu -->
-        <div class="nav-no-collapse header-nav">
-            <ul class="nav navbar-nav pull-right">
-                <li class="dropdown hidden-xs">
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-warning"></i>
-                        <span class="number">0</span>
-                    </a>
-                    <ul class="dropdown-menu notifications">
-                        <li class="dropdown-menu-title">
-                            <span>You have 0 notifications</span>
-                        </li>
-                        <li class="dropdown-menu-sub-footer">
-                            <a>View all notifications</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="btn" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                </li>
-                <!-- start: User Dropdown -->
-                <li class="dropdown">
-                    <a class="btn account dropdown-toggle" data-toggle="dropdown" href="#">
-                        <div class="avatar"><img src="assets/img/avatar.jpg" alt="Avatar"></div>
-                        <div class="user">
-                            <span class="hello">Welcome!</span>
-                            <span class="name">Player</span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                        <li><a href="#"><i class="fa fa-envelope"></i> Messages</a></li>
-                        <li><a href="/logout"><i class="fa fa-off"></i> Logout</a></li>
-                    </ul>
-                </li>
-                <!-- end: User Dropdown -->
-            </ul>
-        </div>
-        <!-- end: Header Menu -->
-
     </div>
 </header>
 <!-- end: Header -->
@@ -135,7 +92,9 @@
                         <tr>
                             <td data-bind="text:level"></td>
                             <td data-bind="text:nation_i18n"></td>
-                            <td data-bind="text:name_i18n"></td>
+                            <td><a href="#" data-bind="text:name_i18n"></a>
+                                <span data-bind="if:is_premium"><img src="assets/ico/premium.png" /></span>
+                            </td>
                             <td data-bind="text:type_i18n"></td>
                         </tr>
                         </tbody>

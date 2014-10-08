@@ -36,9 +36,9 @@ var ViewModels;
             this.tanksList = ko.observableArray([]);
             this.getTanksInfo();
         }
-        MasterViewModel.prototype.createSelect = function (aData, caption) {
+        MasterViewModel.createSelect = function (aData, caption) {
             if (typeof caption === "undefined") { caption = 'All'; }
-            var selStart = '<select><option value="" selected="selected">' + caption + '</option>', i, iLen = aData.length;
+            var selStart = '<select><option value="" selected="selected">' + caption + '</option>';
             var selMiddle = _.reduce(aData, function (memo, data) {
                 return memo + '<option value="' + data + '">' + data + '</option>';
             }, '');
@@ -60,9 +60,9 @@ var ViewModels;
                     return tank.nation_i18n + '_' + levelStr + '_' + tank.name_i18n;
                 }));
                 var tanksTable = $('#tanksTable').dataTable({
-                    "sDom": "<'row'<'col-lg-4'l><'col-lg-4'f><'col-lg-4 customFilters'c>r>t<'row'<'col-lg-12'i><'col-lg-12 center'p>>"
+                    "sDom": "<'row'<'col-lg-3'l><'col-lg-3'f><'col-lg-6 customFilters'c>r>t<'row'<'col-lg-12'i><'col-lg-12 center'p>>"
                 });
-                var allSelects = self.createSelect(_.unique(_.pluck(self.tanksList(), 'nation_i18n')), 'Все страны') + ' ' + self.createSelect(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], 'Все уровни') + ' ' + self.createSelect(_.unique(_.pluck(self.tanksList(), 'type_i18n')), 'Все типы');
+                var allSelects = MasterViewModel.createSelect(_.unique(_.pluck(self.tanksList(), 'nation_i18n')), 'Все страны') + ' ' + MasterViewModel.createSelect(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], 'Все уровни') + ' ' + MasterViewModel.createSelect(_.unique(_.pluck(self.tanksList(), 'type_i18n')), 'Все типы');
                 $('.customFilters').html(allSelects);
                 $('.customFilters select:nth-child(1)').change(function () {
                     tanksTable.fnFilter($(this).val(), 1);

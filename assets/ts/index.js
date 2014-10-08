@@ -32,6 +32,7 @@ var ViewModels;
     var MasterViewModel = (function () {
         function MasterViewModel() {
             this.application_id = '54c513273ff810e69695c9dc613c654f';
+            this.language = 'ru';
             this.navVM = new ViewModels.NavigationViewModel();
             this.tanksList = ko.observableArray([]);
             this.tankSelected = ko.observable({});
@@ -54,7 +55,7 @@ var ViewModels;
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tanks/",
                 type: "GET",
-                data: { 'application_id': this.application_id }
+                data: { 'application_id': this.application_id, 'language': this.language }
             });
             promise.done(function (data) {
                 self.tanksList(_.sortBy(_.toArray(data.data), function (tank) {
@@ -93,7 +94,7 @@ var ViewModels;
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tankinfo/",
                 type: "GET",
-                data: { 'application_id': this.application_id, 'tank_id': tank }
+                data: { 'application_id': this.application_id, 'language': this.language, 'tank_id': tank }
             });
             promise.done(function (data) {
                 self.tankSelected(data.data[tank]);

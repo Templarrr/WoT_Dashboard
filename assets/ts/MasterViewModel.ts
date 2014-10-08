@@ -77,6 +77,7 @@ module ViewModels {
 
     export class MasterViewModel {
         application_id:string = '54c513273ff810e69695c9dc613c654f';
+        language:string = 'ru';
         navVM:NavigationViewModel = new ViewModels.NavigationViewModel();
         tanksList:KnockoutObservableArray<any> = ko.observableArray([]);
         tankSelected:KnockoutObservable<any> = ko.observable({});
@@ -95,7 +96,7 @@ module ViewModels {
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tanks/",
                 type: "GET",
-                data: {'application_id': this.application_id}
+                data: {'application_id': this.application_id, 'language':this.language}
             });
             promise.done(function (data) {
                 self.tanksList(_.sortBy(_.toArray(data.data), function (tank:tankShortInfo) {
@@ -137,7 +138,7 @@ module ViewModels {
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tankinfo/",
                 type: "GET",
-                data: {'application_id': this.application_id, 'tank_id': tank}
+                data: {'application_id': this.application_id, 'language':this.language, 'tank_id': tank}
             });
             promise.done(function (data) {
                 self.tankSelected(data.data[tank]);

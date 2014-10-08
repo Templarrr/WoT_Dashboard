@@ -35,6 +35,7 @@ var ViewModels;
             this.navVM = new ViewModels.NavigationViewModel();
             this.tanksList = ko.observableArray([]);
             this.tankSelected = ko.observable({});
+            this.throttledAjax = _.throttle($.ajax, 300);
             this.getTanksInfo();
         }
         MasterViewModel.createSelect = function (aData, caption) {
@@ -49,7 +50,7 @@ var ViewModels;
 
         MasterViewModel.prototype.getTanksInfo = function () {
             var self = this;
-            var promise = $.ajax({
+            var promise = this.throttledAjax({
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tanks/",
                 type: "GET",
@@ -88,7 +89,7 @@ var ViewModels;
         MasterViewModel.prototype.showTankInfo = function (tank) {
             this.navVM.currentPath(['Tank', tank]);
             var self = this;
-            var promise = $.ajax({
+            var promise = this.throttledAjax({
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tankinfo/",
                 type: "GET",

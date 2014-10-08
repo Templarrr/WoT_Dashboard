@@ -80,6 +80,7 @@ module ViewModels {
         navVM:NavigationViewModel = new ViewModels.NavigationViewModel();
         tanksList:KnockoutObservableArray<any> = ko.observableArray([]);
         tankSelected:KnockoutObservable<any> = ko.observable({});
+        throttledAjax;
 
         public static createSelect(aData:string[], caption = 'All'):string {
             var selStart = '<select><option value="" selected="selected">' + caption + '</option>';
@@ -90,7 +91,7 @@ module ViewModels {
 
         public getTanksInfo():void {
             var self = this;
-            var promise = $.ajax({
+            var promise = this.throttledAjax({
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tanks/",
                 type: "GET",
@@ -132,7 +133,7 @@ module ViewModels {
         public showTankInfo(tank) {
             this.navVM.currentPath(['Tank', tank]);
             var self = this;
-            var promise = $.ajax({
+            var promise = this.throttledAjax({
                 dataType: "json",
                 url: "http://api.worldoftanks.ru/wot/encyclopedia/tankinfo/",
                 type: "GET",
@@ -144,6 +145,7 @@ module ViewModels {
         }
 
         constructor() {
+            this.throttledAjax = _.throttle($.ajax, 300);
             this.getTanksInfo();
         }
     }

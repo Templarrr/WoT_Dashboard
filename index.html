@@ -53,207 +53,223 @@
 <!-- end: Header -->
 
 <div class="container">
+<div class="row">
+
+<!-- start: Main Menu -->
+<div id="sidebar-left" class="col-lg-2 col-sm-1 ">
+
+    <div class="sidebar-nav nav-collapse collapse navbar-collapse">
+        <ul class="nav main-menu">
+            <li data-bind="css: { active: 'Tanks' == navVM.currentPath()[0] }, click: navVM.setPath.bind($data, ['Tanks'])">
+                <a href="#"><i class="fa fa-bar-chart-o"></i><span class="hidden-sm text">Tanks</span></a>
+            </li>
+        </ul>
+    </div>
+    <a href="#" id="main-menu-min" class="full visible-md visible-lg"><i
+            class="fa fa-angle-double-left"></i></a>
+</div>
+<!-- end: Main Menu -->
+
+<!-- start: Content -->
+<div id="content" class="col-lg-10 col-sm-11 ">
     <div class="row">
-
-        <!-- start: Main Menu -->
-        <div id="sidebar-left" class="col-lg-2 col-sm-1 ">
-
-            <div class="sidebar-nav nav-collapse collapse navbar-collapse">
-                <ul class="nav main-menu">
-                    <li data-bind="css: { active: 'Tanks' == navVM.currentPath()[0] }, click: navVM.setPath.bind($data, ['Tanks'])">
-                        <a href="#"><i class="fa fa-bar-chart-o"></i><span class="hidden-sm text">Tanks</span></a>
-                    </li>
-                </ul>
-            </div>
-            <a href="#" id="main-menu-min" class="full visible-md visible-lg"><i
-                    class="fa fa-angle-double-left"></i></a>
+        <ol class="breadcrumb" data-bind="foreach:navVM.currentPath">
+            <li><a href="#"
+                   data-bind="text:$data, click: $parent.navVM.clickBreadcrumb.bind($data, $index, $parent)"></a>
+            </li>
+        </ol>
+        <div data-bind="visible: 'Tanks' == navVM.currentPath()[0]">
+            <table id="tanksTable" class="table table-striped table-bordered bootstrap-datatable datatableFill">
+                <thead>
+                <tr>
+                    <th>Уровень</th>
+                    <th>Страна</th>
+                    <th>Название</th>
+                    <th>Тип</th>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach: tanksList">
+                <tr>
+                    <td data-bind="text:level"></td>
+                    <td data-bind="text:nation_i18n"></td>
+                    <td><a href="#"
+                           data-bind="text:name_i18n,click:masterVM.showTankInfo.bind(masterVM,tank_id)"></a>
+                        <span data-bind="if:is_premium"><img src="assets/ico/premium.png"/></span>
+                    </td>
+                    <td data-bind="text:type_i18n"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <!-- end: Main Menu -->
-
-        <!-- start: Content -->
-        <div id="content" class="col-lg-10 col-sm-11 ">
-            <div class="row">
-                <ol class="breadcrumb" data-bind="foreach:navVM.currentPath">
-                    <li><a href="#"
-                           data-bind="text:$data, click: $parent.navVM.clickBreadcrumb.bind($data, $index, $parent)"></a>
-                    </li>
-                </ol>
-                <div data-bind="visible: 'Tanks' == navVM.currentPath()[0]">
-                    <table id="tanksTable" class="table table-striped table-bordered bootstrap-datatable datatableFill">
-                        <thead>
-                        <tr>
-                            <th>Уровень</th>
-                            <th>Страна</th>
-                            <th>Название</th>
-                            <th>Тип</th>
-                        </tr>
-                        </thead>
-                        <tbody data-bind="foreach: tanksList">
-                        <tr>
-                            <td data-bind="text:level"></td>
-                            <td data-bind="text:nation_i18n"></td>
-                            <td><a href="#"
-                                   data-bind="text:name_i18n,click:masterVM.showTankInfo.bind(masterVM,tank_id)"></a>
-                                <span data-bind="if:is_premium"><img src="assets/ico/premium.png"/></span>
-                            </td>
-                            <td data-bind="text:type_i18n"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div data-bind="visible: 'Tank' == navVM.currentPath()[0]">
-                    <div data-bind="with:masterVM.tankSelected">
-                        <table id="tankInfoTable"
-                               class="table table-striped table-bordered bootstrap-datatable datatableFill">
-                            <caption><span data-bind="text:name_i18n"></span> (<span
-                                    data-bind="text:short_name_i18n"></span>)
-                            </caption>
-                            <tr>
-                                <td><img data-bind="attr:{src:image}"/></td>
-                                <td><img data-bind="attr:{src:image_small}"/></td>
-                                <td><img data-bind="attr:{src:contour_image}"/></td>
-                            </tr>
-                            <tr>
-                                <td>Тип</td>
-                                <td data-bind="text:type_i18n"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Уровень</td>
-                                <td data-bind="text:level"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Нация</td>
-                                <td data-bind="text:nation_i18n"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Экипаж</td>
-                                <td>
-                                    <ul data-bind="foreach:crew">
-                                        <li data-bind="text:role_i18n"></li>
-                                    </ul>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Скорость вращения шасси</td>
-                                <td data-bind="text:chassis_rotation_speed"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Радиус обзора</td>
-                                <td data-bind="text:circular_vision_radius"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Дальность радиосвязи</td>
-                                <td data-bind="text:radio_distance"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Мощность двигателя (сток)</td>
-                                <td data-bind="text:engine_power"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Пушка (сток)</td>
-                                <td>
-                                    <span data-bind="text:gun_name"></span><br/>
-                                    Урон <span data-bind="text:gun_damage_min"></span> - <span
-                                        data-bind="text:gun_damage_max"></span><br/>
-                                    Боезапас <span data-bind="text:gun_max_ammo"></span></span><br/>
-                                    Пробивная сила <span data-bind="text:gun_piercing_power_min"></span> - <span
-                                        data-bind="text:gun_piercing_power_max"></span><br/>
-                                    Темп огня <span data-bind="text:gun_rate"></span></span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Предельная масса</td>
-                                <td data-bind="text:limit_weight"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Прочность</td>
-                                <td data-bind="text:max_health"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Цена в кредитах</td>
-                                <td data-bind="text:price_credit"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Цена в золоте</td>
-                                <td data-bind="text:price_gold"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Лимит скорости</td>
-                                <td data-bind="text:speed_limit"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Броня</td>
-                                <td>
-                                    <ul>
-                                        <li>Башня борт - <span data-bind="text:turret_armor_board"></span></li>
-                                        <li>Башня корма - <span data-bind="text:turret_armor_fedd"></span></li>
-                                        <li>Башня лоб - <span data-bind="text:turret_armor_forehead"></span></li>
-                                        <li>Корпус борт - <span data-bind="text:vehicle_armor_board"></span></li>
-                                        <li>Корпус корма - <span data-bind="text:vehicle_armor_fedd"></span></li>
-                                        <li>Корпус лоб - <span data-bind="text:vehicle_armor_forehead"></span></li>
-                                    </ul>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Скорость поворота башни</td>
-                                <td data-bind="text:turret_rotation_speed"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Вес</td>
-                                <td data-bind="text:weight"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Пушки</td>
-                                <td data-bind="text:guns"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Радио</td>
-                                <td data-bind="text:radios"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Ходовые</td>
-                                <td data-bind="text:chassis"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Двигатели</td>
-                                <td data-bind="text:engines"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Башни</td>
-                                <td data-bind="text:turrets"></td>
-                                <td>&nbsp;</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+        <div data-bind="visible: 'Tank' == navVM.currentPath()[0]">
+            <div data-bind="with:masterVM.tankSelected">
+                <table id="tankInfoTable"
+                       class="table table-striped table-bordered bootstrap-datatable datatableFill">
+                    <caption><span data-bind="text:name_i18n"></span> (<span
+                            data-bind="text:short_name_i18n"></span>)
+                    </caption>
+                    <tr>
+                        <td><img data-bind="attr:{src:image}"/></td>
+                        <td><img data-bind="attr:{src:image_small}"/></td>
+                        <td><img data-bind="attr:{src:contour_image}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Тип</td>
+                        <td data-bind="text:type_i18n"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Уровень</td>
+                        <td data-bind="text:level"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Нация</td>
+                        <td data-bind="text:nation_i18n"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Экипаж</td>
+                        <td>
+                            <ul data-bind="foreach:crew">
+                                <li data-bind="text:role_i18n"></li>
+                            </ul>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Скорость вращения шасси</td>
+                        <td data-bind="text:chassis_rotation_speed"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Радиус обзора</td>
+                        <td data-bind="text:circular_vision_radius"></td>
+                        <td>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100">
+                                <image x="0" y="0" width="1000" height="1000"
+                                       xlink:href="assets/img/map-himmelsdorf-encounter.jpg" transform="scale(0.1)" />
+                                <circle cx="900" cy="100" data-bind="attr:{r:circular_vision_radius}" stroke="green"
+                                        stroke-width="5" fill="yellow" fill-opacity="0.3" transform="scale(0.1)"/>
+                            </svg>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Дальность радиосвязи</td>
+                        <td data-bind="text:radio_distance"></td>
+                        <td>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100">
+                                <image x="0" y="0" width="1000" height="1000"
+                                       xlink:href="assets/img/map-himmelsdorf-encounter.jpg" transform="scale(0.1)" />
+                                <circle cx="900" cy="100" data-bind="attr:{r:radio_distance}" stroke="green"
+                                        stroke-width="5" fill="yellow" fill-opacity="0.3" transform="scale(0.1)"/>
+                            </svg>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Мощность двигателя (сток)</td>
+                        <td data-bind="text:engine_power"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Пушка (сток)</td>
+                        <td>
+                            <span data-bind="text:gun_name"></span><br/>
+                            Урон <span data-bind="text:gun_damage_min"></span> - <span
+                                data-bind="text:gun_damage_max"></span><br/>
+                            Боезапас <span data-bind="text:gun_max_ammo"></span></span><br/>
+                            Пробивная сила <span data-bind="text:gun_piercing_power_min"></span> - <span
+                                data-bind="text:gun_piercing_power_max"></span><br/>
+                            Темп огня <span data-bind="text:gun_rate"></span></span>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Предельная масса</td>
+                        <td data-bind="text:limit_weight"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Прочность</td>
+                        <td data-bind="text:max_health"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Цена в кредитах</td>
+                        <td data-bind="text:price_credit"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Цена в золоте</td>
+                        <td data-bind="text:price_gold"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Лимит скорости</td>
+                        <td data-bind="text:speed_limit"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Броня</td>
+                        <td>
+                            <ul>
+                                <li>Башня борт - <span data-bind="text:turret_armor_board"></span></li>
+                                <li>Башня корма - <span data-bind="text:turret_armor_fedd"></span></li>
+                                <li>Башня лоб - <span data-bind="text:turret_armor_forehead"></span></li>
+                                <li>Корпус борт - <span data-bind="text:vehicle_armor_board"></span></li>
+                                <li>Корпус корма - <span data-bind="text:vehicle_armor_fedd"></span></li>
+                                <li>Корпус лоб - <span data-bind="text:vehicle_armor_forehead"></span></li>
+                            </ul>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Скорость поворота башни</td>
+                        <td data-bind="text:turret_rotation_speed"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Вес</td>
+                        <td data-bind="text:weight"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Пушки</td>
+                        <td data-bind="text:guns"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Радио</td>
+                        <td data-bind="text:radios"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Ходовые</td>
+                        <td data-bind="text:chassis"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Двигатели</td>
+                        <td data-bind="text:engines"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Башни</td>
+                        <td data-bind="text:turrets"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
             </div>
-            <!--/row-->
         </div>
-        <!-- end: Content -->
-
     </div>
     <!--/row-->
+</div>
+<!-- end: Content -->
+
+</div>
+<!--/row-->
 
 </div>
 <!--/container-->

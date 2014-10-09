@@ -92,8 +92,9 @@
                         <tr>
                             <td data-bind="text:level"></td>
                             <td data-bind="text:nation_i18n"></td>
-                            <td><a href="#" data-bind="text:name_i18n,click:masterVM.showTankInfo.bind(masterVM,tank_id)"></a>
-                                <span data-bind="if:is_premium"><img src="assets/ico/premium.png" /></span>
+                            <td><a href="#"
+                                   data-bind="text:name_i18n,click:masterVM.showTankInfo.bind(masterVM,tank_id)"></a>
+                                <span data-bind="if:is_premium"><img src="assets/ico/premium.png"/></span>
                             </td>
                             <td data-bind="text:type_i18n"></td>
                         </tr>
@@ -102,24 +103,148 @@
                 </div>
                 <div data-bind="visible: 'Tank' == navVM.currentPath()[0]">
                     <div data-bind="with:masterVM.tankSelected">
-                        <img data-bind="attr:{src:image}" />
-                        <img data-bind="attr:{src:image_small}" />
-                        <img data-bind="attr:{src:contour_image}" />
-                    <table id="tankInfoTable" class="table table-striped table-bordered bootstrap-datatable datatableFill">
-                        <caption data-bind="text:name_i18n"></caption>
-                        <tr>
-                            <td>Уровень</td>
-                            <td data-bind="text:level"></td>
-                        </tr>
-                        <tr>
-                            <td>Экипаж</td>
-                            <td>
-                                <ul data-bind="foreach:crew">
-                                    <li data-bind="text:role_i18n"></li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </table>
+                        <table id="tankInfoTable"
+                               class="table table-striped table-bordered bootstrap-datatable datatableFill">
+                            <caption><span data-bind="text:name_i18n"></span> (<span
+                                    data-bind="text:short_name_i18n"></span>)
+                            </caption>
+                            <tr>
+                                <td><img data-bind="attr:{src:image}"/></td>
+                                <td><img data-bind="attr:{src:image_small}"/></td>
+                                <td><img data-bind="attr:{src:contour_image}"/></td>
+                            </tr>
+                            <tr>
+                                <td>Тип</td>
+                                <td data-bind="text:type_i18n"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Уровень</td>
+                                <td data-bind="text:level"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Нация</td>
+                                <td data-bind="text:nation_i18n"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Экипаж</td>
+                                <td>
+                                    <ul data-bind="foreach:crew">
+                                        <li data-bind="text:role_i18n"></li>
+                                    </ul>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Скорость вращения шасси</td>
+                                <td data-bind="text:chassis_rotation_speed"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Радиус обзора</td>
+                                <td data-bind="text:circular_vision_radius"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Дальность радиосвязи</td>
+                                <td data-bind="text:radio_distance"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Мощность двигателя (сток)</td>
+                                <td data-bind="text:engine_power"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Пушка (сток)</td>
+                                <td>
+                                    <span data-bind="text:gun_name"></span><br/>
+                                    Урон <span data-bind="text:gun_damage_min"></span> - <span
+                                        data-bind="text:gun_damage_max"></span><br/>
+                                    Боезапас <span data-bind="text:gun_max_ammo"></span></span><br/>
+                                    Пробивная сила <span data-bind="text:gun_piercing_power_min"></span> - <span
+                                        data-bind="text:gun_piercing_power_max"></span><br/>
+                                    Темп огня <span data-bind="text:gun_rate"></span></span>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Предельная масса</td>
+                                <td data-bind="text:limit_weight"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Прочность</td>
+                                <td data-bind="text:max_health"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Цена в кредитах</td>
+                                <td data-bind="text:price_credit"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Цена в золоте</td>
+                                <td data-bind="text:price_gold"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Лимит скорости</td>
+                                <td data-bind="text:speed_limit"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Броня</td>
+                                <td>
+                                    <ul>
+                                        <li>Башня борт - <span data-bind="text:turret_armor_board"></span></li>
+                                        <li>Башня корма - <span data-bind="text:turret_armor_fedd"></span></li>
+                                        <li>Башня лоб - <span data-bind="text:turret_armor_forehead"></span></li>
+                                        <li>Корпус борт - <span data-bind="text:vehicle_armor_board"></span></li>
+                                        <li>Корпус корма - <span data-bind="text:vehicle_armor_fedd"></span></li>
+                                        <li>Корпус лоб - <span data-bind="text:vehicle_armor_forehead"></span></li>
+                                    </ul>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Скорость поворота башни</td>
+                                <td data-bind="text:turret_rotation_speed"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Вес</td>
+                                <td data-bind="text:weight"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Пушки</td>
+                                <td data-bind="text:guns"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Радио</td>
+                                <td data-bind="text:radios"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Ходовые</td>
+                                <td data-bind="text:chassis"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Двигатели</td>
+                                <td data-bind="text:engines"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Башни</td>
+                                <td data-bind="text:turrets"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

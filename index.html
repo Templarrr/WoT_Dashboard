@@ -121,7 +121,30 @@
                     <tr>
                         <td>Уровень</td>
                         <td data-bind="text:level"></td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <svg width="100" height="100">
+                                <rect height="10" width="10" x="0" y="90" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="20" width="10" x="10" y="80" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="30" width="10" x="20" y="70" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="40" width="10" x="30" y="60" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="50" width="10" x="40" y="50" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="60" width="10" x="50" y="40" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="70" width="10" x="60" y="30" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="80" width="10" x="70" y="20" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="90" width="10" x="80" y="10" fill="white" stroke="black" stroke-width="1" />
+                                <rect height="100" width="10" x="90" y="0" fill="white" stroke="black" stroke-width="1" />
+                                <!-- ko if: level==1 --><rect height="10" width="10" x="0" y="90" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==2 --><rect height="20" width="10" x="10" y="80" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==3 --><rect height="30" width="10" x="20" y="70" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==4 --><rect height="40" width="10" x="30" y="60" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==5 --><rect height="50" width="10" x="40" y="50" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==6 --><rect height="60" width="10" x="50" y="40" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==7 --><rect height="70" width="10" x="60" y="30" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==8 --><rect height="80" width="10" x="70" y="20" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==9 --><rect height="90" width="10" x="80" y="10" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                                <!-- ko if: level==10 --><rect height="100" width="10" x="90" y="0" fill="red" stroke="black" stroke-width="1" /><!-- /ko -->
+                            </svg>
+                        </td>
                     </tr>
                     <tr>
                         <td>Нация</td>
